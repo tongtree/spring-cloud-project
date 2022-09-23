@@ -1,4 +1,4 @@
-package com.tong.consume.fallback;
+package com.tong.consume.api.fallback;
 
 import com.tong.consume.api.ProviderApi;
 import org.slf4j.Logger;

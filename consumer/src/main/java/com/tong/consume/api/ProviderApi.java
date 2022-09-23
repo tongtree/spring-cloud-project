@@ -1,6 +1,6 @@
 package com.tong.consume.api;
 
-import com.tong.consume.fallback.ProviderFallBack;
+import com.tong.consume.api.fallback.ProviderFallBack;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
