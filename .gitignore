@@ -1,0 +1,11 @@
+.idea/
+*/target
+/.scannerwork
+*.classpath
+*.project
+*.prefs
+*.settings
+*.iml
+*.log.*
+*.log
+.idea/*
