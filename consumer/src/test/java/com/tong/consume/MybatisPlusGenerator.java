@@ -37,9 +37,15 @@ public class MybatisPlusGenerator {
                             .outputDir(moudlePath); // 指定输出目录
                 })
                 .packageConfig(builder -> {
-                    builder.parent("com.tong.consume") // 设置模块名
-                            .mapper("mapper") // 设置mapper包名
-                            .pathInfo(Collections.singletonMap(OutputFile.xml, xmlPath)); // 设置xml文件生成目录
+                    // 设置模块名
+                    builder.parent("com.tong.consume")
+                            // 设置mapper包名
+                            .mapper("mapper")
+                            .controller("controller")
+                            // 设置xml文件生成目录
+                            .pathInfo(Collections.singletonMap(OutputFile.xml, xmlPath));
+
+
                 })
                 .strategyConfig(builder -> {
                     builder.addInclude(tableArr) // 设置需要生成的表名
@@ -47,10 +53,13 @@ public class MybatisPlusGenerator {
                             .entityBuilder()
                             .enableLombok()
                             .serviceBuilder()
-                            .formatServiceFileName("%sService"); // //去掉Service接口的首字母I
+                             //去掉Service接口的首字母I
+                            .formatServiceFileName("%sService");
+                    builder.controllerBuilder().enableHyphenStyle()  // 开启驼峰转连字符
+                            .enableRestStyle();  // 开启生成@RestController 控制器
                 })
                 .templateConfig(builder -> {
-                    builder.disable(TemplateType.CONTROLLER); // 设置禁止生成controller
+//                    builder.disable(TemplateType.CONTROLLER); // 设置禁止生成controller
                 })
                 .templateEngine(new FreemarkerTemplateEngine()) // 使用Freemarker引擎模板，默认的是Velocity引擎模板
                 .execute();
