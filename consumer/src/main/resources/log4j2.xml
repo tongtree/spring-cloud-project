@@ -5,6 +5,7 @@
     <Properties>
         <Property name="pattern">%d{yyyy-MM-dd HH:mm:ss,SSS} %5p %t %c{1}:%L - %m%n</Property>
         <Property name="logDir">./consumer/logs</Property>
+        <property name="every_file_size">50M</property><!-- 日志切割的最小单位 -->
     </Properties>
 
     <Appenders>
@@ -25,8 +26,10 @@
                 <Pattern>${pattern}</Pattern>
             </PatternLayout>
             <Policies>
-                <TimeBasedTriggeringPolicy interval="1"/>
+                <TimeBasedTriggeringPolicy interval="24"/>
             </Policies>
+            <!-- SizeBasedTriggeringPolicy: 基于日志大小切分日志 -->
+            <SizeBasedTriggeringPolicy size="${every_file_size}"/>
             <!-- 日志保留策略，配置只保留七天 -->
             <DefaultRolloverStrategy>
                 <Delete basePath="${logDir}/" maxDepth="1">
@@ -45,8 +48,10 @@
             </PatternLayout>
             <!-- 指定滚动日志的策略，就是什么时候进行新建日志文件输出日志-->
             <Policies>
-                <TimeBasedTriggeringPolicy interval="1"/>
+                <TimeBasedTriggeringPolicy interval="24"/>
             </Policies>
+            <!-- SizeBasedTriggeringPolicy: 基于日志大小切分日志 -->
+            <SizeBasedTriggeringPolicy size="${every_file_size}"/>
             <!-- 日志保留策略，配置只保留七天 -->
             <DefaultRolloverStrategy>
                 <Delete basePath="${logDir}/" maxDepth="1">
@@ -58,6 +63,15 @@
     </Appenders>
 
     <Loggers>
+        <!--过滤掉spring和mybatis的一些无用的DEBUG信息-->
+        <logger name="org.mybatis" level="info" additivity="false">
+            <AppenderRef ref="Console"/>
+        </logger>
+        <!--监控系统信息-->
+        <!--若是additivity设为false，则 子Logger 只会在自己的appender里输出，而不会在 父Logger 的appender里输出。-->
+        <Logger name="org.springframework" level="info" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
         <Root level="INFO">
             <AppenderRef ref="console"/>
             <AppenderRef ref="infoFile"/>
