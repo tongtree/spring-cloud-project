@@ -26,7 +26,10 @@
                 <Pattern>${pattern}</Pattern>
             </PatternLayout>
             <Policies>
-                <TimeBasedTriggeringPolicy interval="24"/>
+                <!--                以时间为单位的策略；粒度粗细跟【filePattern】里的时间设定有关，-->
+                <!--                目前是%d{yyyy-MM-dd} ,interval="1",所以时间策略就是每天-->
+                <!--                如果是%d{yyyy-MM-dd HH-mm} ,interval="1",则时间策略就是每分钟-->
+                <TimeBasedTriggeringPolicy interval="1"/>
             </Policies>
             <!-- SizeBasedTriggeringPolicy: 基于日志大小切分日志 -->
             <SizeBasedTriggeringPolicy size="${every_file_size}"/>
@@ -48,7 +51,7 @@
             </PatternLayout>
             <!-- 指定滚动日志的策略，就是什么时候进行新建日志文件输出日志-->
             <Policies>
-                <TimeBasedTriggeringPolicy interval="24"/>
+                <TimeBasedTriggeringPolicy interval="1"/>
             </Policies>
             <!-- SizeBasedTriggeringPolicy: 基于日志大小切分日志 -->
             <SizeBasedTriggeringPolicy size="${every_file_size}"/>
@@ -72,6 +75,10 @@
         <Logger name="org.springframework" level="info" additivity="false">
             <AppenderRef ref="Console"/>
         </Logger>
+        <logger name="com.zaxxer.hikari.pool.PoolBase" level="ERROR" additivity="false"/>
+        <logger name="com.zaxxer.hikari.pool.HikariPool" level="ERROR" additivity="false"/>
+        <logger name="com.zaxxer.hikari.HikariDataSource" level="ERROR" additivity="false"/>
+        <logger name="org.springframework.jdbc.datasource" level="ERROR" additivity="false"/>
         <Root level="INFO">
             <AppenderRef ref="console"/>
             <AppenderRef ref="infoFile"/>
