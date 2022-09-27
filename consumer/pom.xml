@@ -178,6 +178,16 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!--        redis-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson</artifactId>
+            <version>3.5.0</version>
+        </dependency>
         <!--        &lt;!&ndash; beetl 模板引擎 &ndash;&gt;-->
         <!--        <dependency>-->
         <!--            <groupId>com.ibeetl</groupId>-->
