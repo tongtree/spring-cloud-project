@@ -3,6 +3,7 @@ package com.tong.consume.controller;
 import com.tong.consume.bean.base.ResponseUtil;
 import com.tong.consume.entity.User;
 import com.tong.consume.service.UserService;
+import com.tong.consume.utils.RocketProducer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private RocketProducer rocketProducer;
+
     /**
      * 登录
      *
@@ -39,11 +43,7 @@ public class UserController {
         log.info("info---");
         log.error("error---");
         log.debug("debug---");
-        try {
-            throw new RuntimeException("runtimeException---");
-        } catch (Exception e) {
-            log.error("异常", e);
-        }
+        rocketProducer.sendDelayMsg("这是一条无用消息",0);
         User user = new User();
         return ResponseUtil.success(user);
     }

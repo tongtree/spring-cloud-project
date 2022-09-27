@@ -39,3 +39,24 @@ mybatis-plus:
     level:
       com.tong.consume.mapper: debug
 
+rocketmq:
+  name-server: 127.0.0.1:9876
+  producer:
+    group: customerbasic-group-test-tong
+    #目的地（topic:tag）
+    #topic
+    topic: customerbasic-topic-test-tong
+    #消息发送超时时长，默认3s
+    send-message-timeout: 3000
+    #sync tag(同步消息tag)
+    sync-tag: anran-sync-tags
+    #async tag(异步消息tag)
+    async-tag: anran-async-tags
+    #oneway tag(单向消息tag)
+    oneway-tag: anran-oneway-tags
+#消费者配置
+mq:
+  consumer:
+    group: customerbasic-group-test-tong
+    #监听主题
+    topic: customerbasic-topic-test-tong
