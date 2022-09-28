@@ -38,7 +38,7 @@ public class RedissonUtil {
     public RLock lock(String lockKey, long leaseTime) {
         RLock lock = redissonClient.getLock(lockKey);
         lock.lock(leaseTime, TimeUnit.SECONDS);
-        return null;
+        return lock;
     }
 
     /**
