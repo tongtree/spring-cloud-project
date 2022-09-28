@@ -16,7 +16,7 @@ public class RedissonUtil {
 
     /**
      * 锁住不设置超时时间(拿不到lock就不罢休，不然线程就一直block)
-     * @author lst
+     * @author niutong
      * @date 2020-5-24 16:23
      * @param lockKey
      * @return org.redisson.api.RLock
@@ -29,7 +29,7 @@ public class RedissonUtil {
 
     /**
      * leaseTime为加锁时间，单位为秒
-     * @author lst
+     * @author niutong
      * @date 2020-5-24 16:23
      * @param lockKey
      * @param leaseTime
@@ -43,7 +43,7 @@ public class RedissonUtil {
 
     /**
      * timeout为加锁时间，时间单位由unit确定
-     * @author lst
+     * @author niutong
      * @date 2020-5-24 16:24
      * @param lockKey
      * @param unit
@@ -58,7 +58,7 @@ public class RedissonUtil {
 
     /**
      * 尝试获取锁
-     * @author lst
+     * @author niutong
      * @date 2020-5-24 16:24
      * @param lockKey
      * @param unit
@@ -77,7 +77,7 @@ public class RedissonUtil {
 
     /**
      * 通过lockKey解锁
-     * @author lst
+     * @author niutong
      * @date 2020-5-24 16:24
      * @param lockKey
      * @return void
@@ -89,7 +89,7 @@ public class RedissonUtil {
 
     /**
      * 直接通过锁解锁
-     * @author lst
+     * @author niutong
      * @date 2020-5-24 16:25
      * @param lock
      * @return void
