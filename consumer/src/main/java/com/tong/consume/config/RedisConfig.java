@@ -2,14 +2,21 @@ package com.tong.consume.config;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisClusterConfiguration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.RedisNode;
+import org.springframework.data.redis.connection.RedisPassword;
 import org.springframework.data.redis.core.*;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * redis配置类
@@ -17,6 +24,30 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @Configuration
 @EnableCaching
 public class RedisConfig extends CachingConfigurerSupport {
+
+    @Value("${spring.redis.cluster.nodes}")
+    private String redisServerNodes;
+
+    @Value("${spring.redis.password}")
+    private String redisServerPassword;
+
+
+    @Bean
+    public RedisClusterConfiguration getRedisClusterConfiguration() {
+
+        RedisClusterConfiguration redisClusterConfiguration = new RedisClusterConfiguration();
+
+        String[] serverArray = redisServerNodes.split(",");
+        Set<RedisNode> nodes = new HashSet<RedisNode>();
+        for (String ipPort : serverArray) {
+            String[] ipAndPort = ipPort.split(":");
+            nodes.add(new RedisNode(ipAndPort[0].trim(), Integer.parseInt(ipAndPort[1])));
+        }
+        redisClusterConfiguration.setClusterNodes(nodes);
+        RedisPassword pwd = RedisPassword.of(redisServerPassword);
+        redisClusterConfiguration.setPassword(pwd);
+        return redisClusterConfiguration;
+    }
 
     /**
      * retemplate相关配置
@@ -40,15 +71,8 @@ public class RedisConfig extends CachingConfigurerSupport {
         om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
         jacksonSeial.setObjectMapper(om);
 
-        // 值采用json序列化
-        template.setValueSerializer(jacksonSeial);
-        //使用StringRedisSerializer来序列化和反序列化redis的key值
-        template.setKeySerializer(new StringRedisSerializer());
-
-        // 设置hash key 和value序列化模式
-        template.setHashKeySerializer(new StringRedisSerializer());
-        template.setHashValueSerializer(jacksonSeial);
-        template.afterPropertiesSet();
+        // 设置RedisTemplate模板API的序列化方式为JSON
+        template.setDefaultSerializer(jacksonSeial);
         //设置事务
         template.setEnableTransactionSupport(true);
 

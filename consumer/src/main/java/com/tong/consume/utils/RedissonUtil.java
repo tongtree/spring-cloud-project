@@ -3,6 +3,7 @@ package com.tong.consume.utils;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
@@ -12,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 public class RedissonUtil {
 
     @Autowired
+    @Qualifier("clusterRedisClient")
     private RedissonClient redissonClient; // RedissonClient已经由配置类生成，这里自动装配即可
 
     /**
