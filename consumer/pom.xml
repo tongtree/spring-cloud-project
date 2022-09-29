@@ -143,6 +143,11 @@
             <artifactId>Log4j-api</artifactId>
             <version>2.12.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+        </dependency>
+
         <!--注意： 这里的版本,要和部署在服务器上的版本号一致-->
         <dependency>
             <groupId>org.apache.rocketmq</groupId>
@@ -178,16 +183,28 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!--        redis-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
+        <!--Springboot集成 Redis ，Springboot2.x默认是用Lettuce连接redis，Lettuce可伸缩，线程安全-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-data-redis</artifactId>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>redis.clients</groupId>-->
+<!--            <artifactId>jedis</artifactId>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.redisson</groupId>-->
+<!--            <artifactId>redisson</artifactId>-->
+<!--            <version>3.5.0</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.redisson</groupId>
-            <artifactId>redisson</artifactId>
-            <version>3.5.0</version>
+            <artifactId>redisson-spring-boot-starter</artifactId>
+            <version>3.13.6</version>
         </dependency>
+
+
+
         <!--        &lt;!&ndash; beetl 模板引擎 &ndash;&gt;-->
         <!--        <dependency>-->
         <!--            <groupId>com.ibeetl</groupId>-->

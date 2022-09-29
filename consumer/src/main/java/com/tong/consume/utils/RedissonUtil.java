@@ -14,7 +14,7 @@ public class RedissonUtil {
 
     @Autowired
     @Qualifier("clusterRedisClient")
-    private RedissonClient redissonClient; // RedissonClient已经由配置类生成，这里自动装配即可
+    private RedissonClient redissonClient;
 
     /**
      * 锁住不设置超时时间(拿不到lock就不罢休，不然线程就一直block)

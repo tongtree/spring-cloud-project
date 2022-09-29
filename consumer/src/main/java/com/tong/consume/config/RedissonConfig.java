@@ -20,21 +20,27 @@ import java.util.List;
 @Configuration
 public class RedissonConfig {
 
-    @Value("${spring.redis.host}")
+    @Value("${redis.server.pattern:single}")
+    private String pattern;
+
+    @Value("${redis.server.host:127.0.0.1}")
     private String host;
 
-    @Value("${spring.redis.port}")
+    @Value("${redis.server.nodes}")
+    private List<String> nodes;
+
+    @Value("${redis.server.port:6379}")
     private String port;
 
-    @Value("${spring.redis.password}")
+    @Value("${redis.server.password}")
     private String password;
 
-    @Value("${redis.cluster.nodes}")
-    private List<String> nodes;
+    @Value("${redis.server.database:1}")
+    private Integer database;
 
 
     @Bean
-    @ConditionalOnProperty(prefix = "spring.redis", name = "pattern", havingValue = "cluster")
+    @ConditionalOnProperty(prefix = "redis.server", name = "pattern", havingValue = "cluster")
     public RedissonClient clusterRedisClient() {
         Config config = new Config();
         ClusterServersConfig clusterServersConfig = config.useClusterServers();
@@ -48,14 +54,14 @@ public class RedissonConfig {
             String url = "redis://" + node;
             clusterServersConfig.addNodeAddress(url);
         }
+        RedissonClient redissonClient = Redisson.create(config);
 
-        return Redisson.create(config);
+        return redissonClient;
     }
 
 
-
     @Bean
-    @ConditionalOnProperty(prefix = "spring.redis", name = "pattern", havingValue = "single")
+    @ConditionalOnProperty(prefix = "redis.server", name = "pattern", havingValue = "single")
     public RedissonClient singleRedisClient() {
         Config config = new Config();
         SingleServerConfig singleServerConfig = config.useSingleServer();
@@ -65,9 +71,9 @@ public class RedissonConfig {
         }
         String url = "redis://" + host + ":" + port;
         singleServerConfig.setAddress(url);
-        singleServerConfig.setDatabase(0);
+        singleServerConfig.setDatabase(database);
+        RedissonClient redissonClient = Redisson.create(config);
 
-        return Redisson.create(config);
+        return redissonClient;
     }
-
 }
