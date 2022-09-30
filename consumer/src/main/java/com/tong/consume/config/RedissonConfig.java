@@ -20,27 +20,18 @@ import java.util.List;
 @Configuration
 public class RedissonConfig {
 
-    @Value("${redis.server.pattern:single}")
-    private String pattern;
 
-    @Value("${redis.server.host:127.0.0.1}")
-    private String host;
-
-    @Value("${redis.server.nodes}")
+    @Value("${spring.redis.cluster.nodes}")
     private List<String> nodes;
 
-    @Value("${redis.server.port:6379}")
-    private String port;
-
-    @Value("${redis.server.password}")
+    @Value("${spring.redis.password}")
     private String password;
 
-    @Value("${redis.server.database:1}")
+    @Value("${spring.redis.database}")
     private Integer database;
 
 
     @Bean
-    @ConditionalOnProperty(prefix = "redis.server", name = "pattern", havingValue = "cluster")
     public RedissonClient clusterRedisClient() {
         Config config = new Config();
         ClusterServersConfig clusterServersConfig = config.useClusterServers();
@@ -60,20 +51,4 @@ public class RedissonConfig {
     }
 
 
-    @Bean
-    @ConditionalOnProperty(prefix = "redis.server", name = "pattern", havingValue = "single")
-    public RedissonClient singleRedisClient() {
-        Config config = new Config();
-        SingleServerConfig singleServerConfig = config.useSingleServer();
-
-        if (!StringUtils.isBlank(password)) {
-            singleServerConfig.setPassword(password);
-        }
-        String url = "redis://" + host + ":" + port;
-        singleServerConfig.setAddress(url);
-        singleServerConfig.setDatabase(database);
-        RedissonClient redissonClient = Redisson.create(config);
-
-        return redissonClient;
-    }
 }

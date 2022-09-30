@@ -72,13 +72,13 @@
         </logger>
         <!--监控系统信息-->
         <!--若是additivity设为false，则 子Logger 只会在自己的appender里输出，而不会在 父Logger 的appender里输出。-->
-        <Logger name="org.springframework" level="info" additivity="false">
-            <AppenderRef ref="Console"/>
-        </Logger>
-        <logger name="com.zaxxer.hikari.pool.PoolBase" level="ERROR" additivity="false"/>
-        <logger name="com.zaxxer.hikari.pool.HikariPool" level="ERROR" additivity="false"/>
-        <logger name="com.zaxxer.hikari.HikariDataSource" level="ERROR" additivity="false"/>
-        <logger name="org.springframework.jdbc.datasource" level="ERROR" additivity="false"/>
+<!--        <Logger name="org.springframework" level="info" additivity="false">-->
+<!--            <AppenderRef ref="Console"/>-->
+<!--        </Logger>-->
+<!--        <logger name="com.zaxxer.hikari.pool.PoolBase" level="ERROR" additivity="false"/>-->
+<!--        <logger name="com.zaxxer.hikari.pool.HikariPool" level="ERROR" additivity="false"/>-->
+<!--        <logger name="com.zaxxer.hikari.HikariDataSource" level="ERROR" additivity="false"/>-->
+<!--        <logger name="org.springframework.jdbc.datasource" level="ERROR" additivity="false"/>-->
         <Root level="INFO">
             <AppenderRef ref="console"/>
             <AppenderRef ref="infoFile"/>

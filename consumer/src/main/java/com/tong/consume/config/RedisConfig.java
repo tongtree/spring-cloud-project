@@ -17,10 +17,10 @@ import java.util.HashSet;
 import java.util.Set;
 @Configuration
 public class RedisConfig {
-    @Value("${redis.server.nodes}")
+    @Value("${spring.redis.cluster.nodes}")
     private String redisServerNodes;
 
-    @Value("${redis.server.password}")
+    @Value("${spring.redis.password}")
     private String redisServerPassword;
 
     @Bean
