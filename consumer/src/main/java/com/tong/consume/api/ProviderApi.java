@@ -6,10 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @FeignClient(name = "provider",fallback = ProviderFallBack.class )
-@RequestMapping("provider")
 public interface ProviderApi {
 
-    @GetMapping("/getOne")
+    @GetMapping("/provider/getOne")
     public String getOne();
 
 }

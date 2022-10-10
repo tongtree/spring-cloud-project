@@ -183,6 +183,10 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+        </dependency>
         <!--Springboot集成 Redis ，Springboot2.x默认是用Lettuce连接redis，Lettuce可伸缩，线程安全-->
 <!--        <dependency>-->
 <!--            <groupId>org.springframework.boot</groupId>-->

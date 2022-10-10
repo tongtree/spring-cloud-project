@@ -10,3 +10,9 @@ spring:
         server-addr: 127.0.0.1:8848
       config:
         enabled: false
+    sentinel:
+      transport:
+        dashboard: 127.0.0.1:8787
+feign:
+  sentinel:
+    enabled: true
